@@ -14,14 +14,14 @@
  	
  	public function estConnecte()
  	{
- 		return $this->session->userdata('iduser');
+ 		return $this->session->userdata('VIS_MATRICULE');
  		
  	}
  	
  public function connecter($iduser,$nom,$prenom)
  {
  	$resultat = array(
- 			'iduser' => $iduser,
+ 			'VIS_MATRICULE' => $iduser,
  			'VIS_NOM' => $nom,
  			'VIS_PRENOM' => $prenom,
  			);

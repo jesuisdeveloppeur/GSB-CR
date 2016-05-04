@@ -23,12 +23,15 @@ class Welcome extends CI_Controller {
 		$this->load->model('login');
 		$this->load->helper('form');
 		if (!$this->login->estConnecte())
+		
 			{
+				
 				$data = array();
 				$this->load->view('connexion',$data);
 			}
 			else
 			{
+				
 				$this->load->view('welcome_message.php');
 				//redirect('/welcome/');
 			}
@@ -49,8 +52,8 @@ class Welcome extends CI_Controller {
 	
 	public function login()
 	{
-		print_r('bklm');
-		die();
+		//print_r('bklm');
+		//die();
 		$this->load->model('login');
 		$login = $this->input->post('login');
 		$mdp = $this->input->post('mdp');
@@ -63,11 +66,17 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
-			$this->login->connecter( $resultat['iduser'],$resultat['VIS_NOM'], $resultat['VIS_PRENOM']);
+			//$this->login->connecter( $resultat['VIS_MATRICULE'],$resultat['VIS_NOM'], $resultat['VIS_PRENOM']);
+			$this->login->connecter( $resultat['id'],$resultat['nom'], $resultat['prenom']);
 			$this->index();
 		}
 	
 	
 	
 	} 
+	public function deconnecter()
+	{
+		$this->session->sess_destroy();
+		$this->load->view('connexion');
+	}
 }

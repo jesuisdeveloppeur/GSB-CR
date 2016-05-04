@@ -7,12 +7,12 @@ class DataAccess extends CI_Model {
 		parent::_construct();
 	
 	}
-	
+	//, visiteur.statut as statut
 	public function getInfosVisiteur($login, $mdp){
 		
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.statut as statut
+		$req = "select visiteur.VIS_MATRICULE as id, visiteur.VIS_NOM as nom, visiteur.VIS_PRENOM as prenom
 				from visiteur
-				where visiteur.login? and visiteur.mdp=?";
+				where visiteur.login=? and visiteur.mdp=?";
 		$rs = $this->db->query($req, array ($login, $mdp));
 		$ligne = $rs->first_row('array');
 		return $ligne;
