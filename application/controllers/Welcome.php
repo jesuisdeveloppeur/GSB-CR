@@ -20,6 +20,54 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->model('login');
+		$this->load->helper('form');
+		if (!$this->login->estConnecte())
+			{
+				$data = array();
+				$this->load->view('connexion',$data);
+			}
+			else
+			{
+				$this->load->view('welcome_message.php');
+				//redirect('/welcome/');
+			}
+		
+		/**if (!$this->login->estConnecte())
+		{
+			$data = array();
+			$this->load->view('connexion',$data);
+		}
+		else
+		{
+			$this->load->view('welcome_message.php');
+			//redirect('/welcome/');
+		}
+	*/
+		//$this->load->view('v-charte', $data);
 	}
+	
+	public function login()
+	{
+		print_r('bklm');
+		die();
+		$this->load->model('login');
+		$login = $this->input->post('login');
+		$mdp = $this->input->post('mdp');
+		$resultat = $this->login->authentifier($login,$mdp);
+	
+		if (empty($resultat))
+		{
+			$data= array('erreur'=> 'login ou mot de passe incorect');
+			$this->load->view('connexion',$data);
+		}
+		else
+		{
+			$this->login->connecter( $resultat['iduser'],$resultat['VIS_NOM'], $resultat['VIS_PRENOM']);
+			$this->index();
+		}
+	
+	
+	
+	} 
 }
